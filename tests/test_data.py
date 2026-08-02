@@ -1,33 +1,32 @@
-from src.data_manager import obtener_exoplanetas
-
-print("🛰️ Conectando con el archivo de la NASA (esto puede tardar unos segundos)...")
-
-# Llamamos a tu función pro. La primera vez debería ir a internet.
-planetas = obtener_exoplanetas()
-
-print("\n--- RESULTADOS DE LA AUDITORÍA DE DATOS ---")
-print(f"📊 Cantidad total de exoplanetas detectados: {len(planetas)}")
-
-if len(planetas) > 0:
-    #Mostramos los datos crudos del primer planeta de la lista para verificar el formato
-    print("🪐 Muestra del primer exoplaneta en la base de datos:")
-    print(planetas[0])
-    print("\n✅ ¡La prueba fue un éxito rotundo!")
-else:
-    print("❌ No se recibieron datos. Revisa tu conexión a internet o la URL.")
-
 from src.data_manager import obtener_exoplanetas, filtrar_habitables
 
-print("🚀 Cargando base de datos...")
-todos_los_planetas = obtener_exoplanetas()
 
-print("🔬 Aplicando filtros científicos de habitabilidad...")
-habitables = filtrar_habitables(todos_los_planetas)
+def test_obtener_exoplanetas_devuelve_datos():
+    planetas = obtener_exoplanetas()
+    assert len(planetas) > 0
 
-print(f"\n📊 ¡Filtro completado!")
-print(f"🌍 Encontrados {len(habitables)} exoplanetas rocosos potencialmente habitables a menos de 200 pc.")
 
-if len(habitables) > 0:
-    print("\n🪐 Muestra de los candidatos encontrados:")
-    for p in habitables[:3]:  # Mostramos los primeros 3 para revisar
-        print(f"- {p['name']}: Distancia={p['dist']}pc, Temp={p['temp']}K, Dens={p['dens']}g/cm3")
+def test_primer_planeta_tiene_formato_valido():
+    planetas = obtener_exoplanetas()
+    primero = planetas[0]
+    # el planeta debe traer al menos su nombre
+    assert "pl_name" in primero
+
+
+def test_filtrar_habitables_es_subconjunto():
+    todos = obtener_exoplanetas()
+    habitables = filtrar_habitables(todos)
+    # nunca puede haber más habitables que el total
+    assert len(habitables) <= len(todos)
+
+
+def test_habitables_tienen_campos_esperados():
+    todos = obtener_exoplanetas()
+    habitables = filtrar_habitables(todos)
+    if len(habitables) > 0:
+        p = habitables[0]
+        # verifica que existan las claves que usa tu programa
+        assert "name" in p
+        assert "dist" in p
+        assert "temp" in p
+        assert "dens" in p
