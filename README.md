@@ -16,7 +16,7 @@ Python 3.12 · CustomTkinter · Requests · Pytest
 ## 📦 Instalación y uso
 
 ```bash
-git clone https://github.com/tu-usuario/lira.git
+git clone https://github.com/lenbbee/lira.git
 cd lira
 pip install -r requirements.txt
 python main.py
