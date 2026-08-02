@@ -1,8 +1,6 @@
-# LIRA — Exoplanet Radar System
+# 🌌 LIRA — Exoplanet Radar System
 
 Radar táctico interactivo para visualizar exoplanetas habitables en tiempo real, con datos oficiales del **NASA Exoplanet Archive**.
-
-![LIRA Preview](assets/preview.png)
 
 ## 🚀 Características
 
@@ -24,22 +22,27 @@ pip install -r requirements.txt
 python main.py
 ```
 
-La primera ejecución descarga los datos; las siguientes funcionan offline.
+La primera ejecución descarga los datos desde la NASA y los guarda en `data/exoplanets_cache.json`; las siguientes ejecuciones funcionan offline.
 
 ## 📁 Estructura
 
 ```text
 lira/
-├── assets/          # Recursos gráficos
-├── data/            # Caché JSON
+├── data/
+│   └── exoplanets_cache.json   # Caché local de datos NASA
 ├── src/
-│   ├── data_manager.py   # API y caché NASA
-│   ├── radar_math.py     # Conversión polar-cartesiana
-│   ├── clustering.py     # Clasificación de mundos
-│   └── interface.py      # GUI CustomTkinter
-├── tests/           # Pruebas unitarias
-├── main.py          # Punto de entrada
-└── requirements.txt
+│   ├── __init__.py
+│   ├── data_manager.py         # API y caché NASA
+│   ├── radar_math.py           # Conversión polar-cartesiana
+│   ├── clustering.py           # Clasificación de mundos
+│   └── interface.py            # GUI CustomTkinter
+├── tests/
+│   ├── test_data.py            # Pruebas de datos y filtros
+│   └── test_math.py            # Pruebas de conversión del radar
+├── conftest.py                 # Configuración de pytest
+├── main.py                     # Punto de entrada
+├── requirements.txt
+└── .gitignore
 ```
 
 ## 🧪 Tests
@@ -47,6 +50,8 @@ lira/
 ```bash
 pytest
 ```
+
+La suite verifica la conexión con los datos de la NASA, el filtrado de exoplanetas habitables y las conversiones matemáticas del radar.
 
 ## 📄 Licencia
 
