@@ -22,7 +22,6 @@ def descargar_datos_nasa() -> list:
         
         print(f"📡 Código de respuesta del servidor: {respuesta.status_code}")
         
-        # Printeamos los primeros 300 caracteres de lo que sea que mandó la NASA
         print(f"📄 Primeros caracteres recibidos:\n{respuesta.text[:300]}")
         
         if respuesta.status_code == 200:
