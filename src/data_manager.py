@@ -41,7 +41,8 @@ def obtener_exoplanetas() -> list:
             datos = descargar_datos_nasa() 
             os.makedirs("data", exist_ok=True)
             with open (CACHE_FILE, "w") as f: 
-                json.dump(datos, f, indent=4) 
+                json.dump(datos, f, indent=4)
+            return datos
     except Exception as e: #para cerrar el try
         print(f"Error al obtener los datos: {e}")
         return []
